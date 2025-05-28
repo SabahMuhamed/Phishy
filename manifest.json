@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Phishy Shield",
+  "version": "1.0.1",
+  "description": "Highlights potentially phishy emails in Gmail and allows managing a custom blacklist.",
+  "permissions": [
+    "storage",    // To store the blacklist
+    "activeTab",  // Often needed for popups, though content scripts are primary here
+    "scripting"   // To inject content scripts (though we'll use "matches" for auto-injection)
+  ],
+  "host_permissions": [
+    "*://mail.google.com/*" // So content script can run on Gmail
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://mail.google.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"] // Optional: if you want to add specific CSS for content script
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
