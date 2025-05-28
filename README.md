@@ -9,101 +9,118 @@ This extension enhances your email security by:
 Please Note: Highlighting serves as a precautionary alert. Always exercise your own judgment before interacting with any email.
 
 
-# How to Use
+# Phishy Shield - Chrome Extension
 
-# Part 1: Preparing Your Extension Files
-Create a Main Folder:
-On your computer, create a new folder. Let's name it phishy-shield-extension. This folder will hold all your extension's files.
-Organize Files Inside:
-Place all the files directly into this phishy-shield-extension folder:
-manifest.json
-popup.html
-popup.js
-popup.css
-content.js
-background.js
-content.css (You can create this as an empty file if you don't have specific styles for it yet)
-Create the icons Folder:
-Inside the phishy-shield-extension folder, create another folder named icons.
-# Add Icons:
-Place your icon files into the icons folder. You'll need:
-icon16.png (16x16 pixels)
-icon48.png (48x48 pixels)
-icon128.png (128x128 pixels)
-(If you don't have icons yet, you can find simple placeholder PNGs online, or create them. The extension will still load without them, but it won't have an icon in the toolbar or extensions page).
-# Your final folder structure should look like this:
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Phishy Shield is a Chrome extension designed to enhance your email security within Gmail by automatically highlighting potentially suspicious emails and allowing you to maintain a personal blacklist of email addresses and domains.
+
+## Features
+
+*   **Automatic Phishing Detection:** Highlights emails in your Gmail inbox that contain common phishing-related keywords in their subject lines with a **<span style="color:red;">red</span>** border.
+*   **Custom Blacklist:** Allows you to add specific email addresses or entire domains to a personal blacklist.
+*   **Blacklist Highlighting:** Emails from senders on your blacklist are prominently marked with a **<span style="color:darkred;">dark red</span>** border.
+*   **Informative Tooltips:** Hover over highlighted emails to see why they were flagged (keyword match or blacklist).
+*   **User-Friendly Popup:** Easily manage your blacklist and understand how the extension works via a simple popup interface.
+
+
+
+
+## How It Works
+
+The extension operates in two main ways:
+
+1.  **Content Script (`content.js`):**
+    *   This script runs directly on `mail.google.com` pages.
+    *   It scans your email rows for subject lines containing predefined phishing keywords.
+    *   It also checks the sender's email address and domain against your personal blacklist (loaded from `chrome.storage`).
+    *   Based on these checks, it applies visual styling (colored left borders and tooltips) to the email rows in your inbox.
+    *   A `MutationObserver` is used to efficiently re-scan for new emails or changes in the Gmail interface.
+
+2.  **Popup Interface (`popup.html`, `popup.js`, `popup.css`):**
+    *   Accessible by clicking the extension icon in the Chrome toolbar.
+    *   Provides information on how the extension functions.
+    *   Includes a blacklist manager where you can:
+        *   Add new email addresses or domains to your blacklist.
+        *   View and remove existing entries from your blacklist.
+    *   The blacklist is stored locally using `chrome.storage.local`.
+
+## Installation (For Developers / Local Testing)
+
+To install and test Phishy Shield locally:
+
+1.  **Download or Clone the Repository:**
+    *   If you have this project on GitHub, clone it:
+        ```bash
+        git clone [URL_OF_YOUR_REPOSITORY]
+        ```
+    *   Alternatively, download the source code as a ZIP file and extract it.
+
+2.  **Prepare Files:**
+    Ensure all necessary files are present in the extension's root folder:
+    *   `manifest.json`
+    *   `popup.html`
+    *   `popup.js`
+    *   `popup.css`
+    *   `content.js`
+    *   `background.js`
+    *   `content.css` (can be empty)
+    *   An `icons/` folder containing `icon16.png`, `icon48.png`, and `icon128.png`.
+
+3.  **Open Chrome Extensions Page:**
+    *   Open your Google Chrome browser.
+    *   Navigate to `chrome://extensions`.
+
+4.  **Enable Developer Mode:**
+    *   In the top-right corner of the Extensions page, turn ON the "Developer mode" toggle.
+
+5.  **Load Unpacked Extension:**
+    *   Click the "Load unpacked" button that appears.
+    *   In the file dialog, navigate to and select the root folder of the Phishy Shield extension (the folder containing `manifest.json`).
+    *   Click "Select Folder."
+
+6.  **Verify:**
+    *   The "Phishy Shield" extension should now appear in your list of installed extensions.
+
+## Usage
+
+1.  **Pin the Extension:** For easy access, click the puzzle piece (🧩) icon in your Chrome toolbar, find "Phishy Shield," and click the pin (📌) icon next to it.
+
+2.  **Open Gmail:** Navigate to `mail.google.com`.
+    *   The extension will automatically start highlighting emails based on phishing keywords or your blacklist.
+    *   Hover over a highlighted email to see the reason.
+
+3.  **Manage Your Blacklist:**
+    *   Click the Phishy Shield icon in your toolbar to open the popup.
+    *   Use the "Manage Blacklist" section to add or remove email addresses and domains. Changes are saved automatically.
+
+## File Structure
+
 phishy-shield-extension/
-├── manifest.json
-├── popup.html
-├── popup.js
-├── popup.css
-├── content.js
-├── content.css
-├── background.js
-└── icons/
-    ├── icon16.png
-    ├── icon48.png
-    └── icon128.png
-Use code with caution.
-# Part 2: Loading the Extension in Chrome (Developer Mode)
-Open Chrome Extensions Page:
-Open your Google Chrome browser.
-In the address bar, type chrome://extensions and press Enter.
-Alternatively, click the three vertical dots (⋮) in the top-right corner of Chrome, go to "More tools," and then select "Extensions."
-Enable Developer Mode:
-On the Extensions page, look for a toggle switch labeled "Developer mode" (usually in the top-right corner).
-Turn this toggle ON. This will reveal new options, including "Load unpacked."
-(Image for illustration)
-Load Unpacked Extension:
-With Developer mode enabled, you'll see a button that says "Load unpacked." Click this button.
+├── manifest.json # Defines the extension's properties, permissions, and scripts
+├── popup.html # Structure for the extension's popup window
+├── popup.js # JavaScript logic for the popup (blacklist management, UI)
+├── popup.css # Styles for the popup window
+├── content.js # Script injected into Gmail pages to highlight emails
+├── content.css # Optional styles for elements modified/added by content.js
+├── background.js # Service worker for background tasks (currently minimal)
+└── icons/ # Folder for extension icons
+├── icon16.png
+├── icon48.png
+└── icon128.png
 
 
-# Select Your Extension Folder:
-A file dialog will open. Navigate to and select the phishy-shield-extension folder (the main folder you created, not any file inside it).
-Click "Select Folder" or "Open."
-# Verify Installation:
-If there are no errors in your manifest.json or other critical files, your "Phishy Shield" extension should now appear in the list of installed extensions.
-You should see its name, version, and icon (if provided).
-Any errors during loading will typically be displayed on this page. Common errors are related to typos in manifest.json.
+## Future Enhancements (Ideas)
 
-# Part 3: Using the "Phishy Shield" Extension
-Pin the Extension (Optional but Recommended):
-Click the puzzle piece icon (🧩) in Chrome's toolbar (this is the "Extensions" menu).
-Find "Phishy Shield" in the list.
-Click the pin icon (📌) next to it. This will make the extension's icon visible directly in your Chrome toolbar for easy access.
-# Open Gmail:
-Navigate to https://mail.google.com/ and log in to your Gmail account.
-Observe Email Highlighting (Content Script):
-The content.js script should automatically start working.
-Look at your emails in the inbox list.
-Emails with subjects containing keywords like "urgent," "verify," "bank," etc., should have a red left border.
-If you later add a sender's email or domain to the blacklist via the popup, emails from that sender should have a dark red left border.
-Hover over a highlighted email row to see a tooltip with the reason (e.g., "SPOOF/BLACKLISTED sender:..." or "Possible Phishing (Keywords):...").
-Note: The selectors in content.js for finding email rows, subjects, and senders in Gmail can be fragile. If Gmail updates its HTML structure, these might stop working correctly. This is a common challenge with extensions that modify complex websites.
-# Open the Popup:
-Click the "Phishy Shield" icon in your Chrome toolbar (the one you pinned, or find it in the puzzle piece menu).
-The popup window will appear.
-Using the Popup:
-Information: The top section explains how the extension works and includes the disclaimer.
-# Manage Blacklist:
-Add Item: In the "Enter email or domain" input field, type an email address (e.g., scammer@example.com) or a domain (e.g., bad-phishing-site.org).
-Click the "Add" button or press Enter.
-The item will be added to the "Current Blacklist" list below.
-Remove Item: In the "Current Blacklist," find an item you want to remove and click the "Remove" button next to it.
-The blacklist is saved automatically.
-# Test Blacklist:
-After adding an email or domain to the blacklist, refresh your Gmail page (or wait for new emails to load).
-Emails from senders on your blacklist should now be highlighted with a dark red border.
-# Part 4: Updating and Debugging
-Making Changes:
-If you edit any of your extension files (e.g., popup.js, content.js, manifest.json), you need to reload the extension for the changes to take effect.
-Reloading the Extension:
-Go back to the chrome://extensions page.
-Find your "Phishy Shield" extension.
-Click the reload icon (a circular arrow) on the extension's card.
-Important: If the popup was open, close it before reloading to avoid the "context invalidated" error during development.
-# Debugging:
-Popup Errors: Right-click on the open popup and select "Inspect." This will open Developer Tools for the popup, where you can see console logs and errors from popup.js.
-Content Script Errors: In your Gmail tab, open Developer Tools (Ctrl+Shift+I or Cmd+Opt+I). Check the "Console" tab for logs and errors from content.js.
-Background Script Errors: On the chrome://extensions page, find your extension and click the "Service worker" link (if available, for Manifest V3) or "background page" link (for Manifest V2). This opens Developer Tools for your background script.
-You're all set! This should get your extension loaded and running. Remember that developing for a dynamic site like Gmail can sometimes require adjustments to your content script's selectors if Google changes its page structure.
+*   Allow users to customize the list of phishing keywords via the popup.
+*   Option to whitelist specific senders or subjects.
+*   More sophisticated phishing detection algorithms.
+*   Synchronization of blacklist across devices (using `chrome.storage.sync`).
+*   Improved UI/UX for the popup.
+
+## Contributing
+
+Contributions are welcome! If you have suggestions or find bugs, please open an issue or submit a pull request.
+
+*(If you have specific contribution guidelines, add them here.)*
+
