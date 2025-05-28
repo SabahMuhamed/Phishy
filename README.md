@@ -52,7 +52,7 @@ To install and test Phishy Shield locally:
 1.  **Download or Clone the Repository:**
     *   If you have this project on GitHub, clone it:
         ```bash
-        git clone [URL_OF_YOUR_REPOSITORY]
+        git clone https://github.com/SabahMuhamed/Phishy
         ```
     *   Alternatively, download the source code as a ZIP file and extract it.
 
@@ -97,17 +97,17 @@ To install and test Phishy Shield locally:
 ## File Structure
 
 phishy-shield-extension/
-├── manifest.json # Defines the extension's properties, permissions, and scripts
-├── popup.html # Structure for the extension's popup window
-├── popup.js # JavaScript logic for the popup (blacklist management, UI)
-├── popup.css # Styles for the popup window
-├── content.js # Script injected into Gmail pages to highlight emails
-├── content.css # Optional styles for elements modified/added by content.js
-├── background.js # Service worker for background tasks (currently minimal)
-└── icons/ # Folder for extension icons
-├── icon16.png
-├── icon48.png
-└── icon128.png
+**├── manifest.json # Defines the extension's properties, permissions, and scripts**
+**├── popup.html # Structure for the extension's popup window**
+**├── popup.js # JavaScript logic for the popup (blacklist management, UI)**
+**├── popup.css # Styles for the popup window**
+**├── content.js # Script injected into Gmail pages to highlight emails**
+**├── content.css # Optional styles for elements modified/added by content.js**
+**├── background.js # Service worker for background tasks (currently minimal)**
+**└── icons/ # Folder for extension icons**
+**├── icon16.png**
+**├── icon48.png**
+**└── icon128.png**
 
 
 ## Future Enhancements (Ideas)
