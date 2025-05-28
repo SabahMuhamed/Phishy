@@ -1,6 +1,6 @@
 
 # How It Works
-This extension enhances your email security by:
+This extension enhances your email security by:**
 1.Automatically highlighting emails suspected of phishing in red.
 2.Marking emails from senders on your blacklist with a dark red border.
 3.Allowing you to curate a personal blacklist of suspicious email addresses or domains below.
