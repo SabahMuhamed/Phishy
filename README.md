@@ -1,8 +1,6 @@
-# Phishy
-A simple extention for avoiding phishing emails in Gmail.
+
 # How It Works
 This extension enhances your email security by:
-
 1.Automatically highlighting emails suspected of phishing in red.
 2.Marking emails from senders on your blacklist with a dark red border.
 3.Allowing you to curate a personal blacklist of suspicious email addresses or domains below.
@@ -94,20 +92,6 @@ To install and test Phishy Shield locally:
     *   Click the Phishy Shield icon in your toolbar to open the popup.
     *   Use the "Manage Blacklist" section to add or remove email addresses and domains. Changes are saved automatically.
 
-## File Structure
-
-phishy-shield-extension/
-**├── manifest.json # Defines the extension's properties, permissions, and scripts**
-**├── popup.html # Structure for the extension's popup window**
-**├── popup.js # JavaScript logic for the popup (blacklist management, UI)**
-**├── popup.css # Styles for the popup window**
-**├── content.js # Script injected into Gmail pages to highlight emails**
-**├── content.css # Optional styles for elements modified/added by content.js**
-**├── background.js # Service worker for background tasks (currently minimal)**
-**└── icons/ # Folder for extension icons**
-**├── icon16.png**
-**├── icon48.png**
-**└── icon128.png**
 
 
 ## Future Enhancements (Ideas)
